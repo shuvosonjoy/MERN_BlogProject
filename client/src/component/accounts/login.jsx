@@ -83,7 +83,7 @@ const Login = () => {
     
       <Wrapper>
         <TextField variant="standard" label="Enter Email" />
-        <TextField variant="standard" label="Password"/>
+        <TextField variant="standard" label="Enter Password"/>
         <LoginButton>Login</LoginButton>
         <Typography style={{ textAlign: 'center'}}>OR</Typography>
         <SignupButton onClick={()=>handleToggle()}>Create An Account</SignupButton>
