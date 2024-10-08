@@ -66,7 +66,7 @@ const Login = () => {
     const textInput=(e)=>{
        
         setSignUpValues({...values,[e.target.name]:e.target.value});
-        console.log(signUpValues);
+ 
     }
     
 
@@ -82,7 +82,7 @@ const Login = () => {
 
     
       <Wrapper>
-        <TextField variant="standard" label="Email" />
+        <TextField variant="standard" label="Enter Email" />
         <TextField variant="standard" label="Password"/>
         <LoginButton>Login</LoginButton>
         <Typography style={{ textAlign: 'center'}}>OR</Typography>
