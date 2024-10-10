@@ -50,10 +50,15 @@ const signUpValues = {
   username: "",
   password: "",
 };
+const loginValues = {
+  email: "",
+  password: "",
+};
 
 const Login = () => {
   const [account, toggleAccount] = useState(true);
   const [signup, setSignUpValues] = useState(signUpValues);
+  const [login, setLoginValues] = useState(loginValues);
 
   const textInput = (e) => {
     setSignUpValues({ ...signup, [e.target.name]: e.target.value });
@@ -63,20 +68,46 @@ const Login = () => {
     toggleAccount(!account);
   };
   const SignUpUser = async () => {
-   let response = await API.userSignup(signup)
-   if(response.isSuccess){
-    setSignUpValues(signUpValues);
-   }
+    let response = await API.userSignup(signup);
+    if (response.isSuccess) {
+      setSignUpValues(signUpValues);
+    }
   };
+
+  const loginValueChange = (e) => {
+    setLoginValues({ ...login, [e.target.name]: e.target.value });
+  };
+
+const LoginUser = async ()=>{
+  let response  = await API.userLogin(login);
+  console.log(response);
+  if(response.isSuccess){
+ 
+   
+    sessionStorage.setItem("accessToken",`Bearer ${response.data.accessToken}`);
+    sessionStorage.setItem("refreshToken",`Bearer ${response.data.refreshToken}`);
+  }
+}
+
   return (
     <Component>
       <Box>
         <Header>Administrative</Header>
         {account === true ? (
           <Wrapper>
-            <TextField variant="standard" label="Enter Email" />
-            <TextField variant="standard" label="Enter Password" />
-            <LoginButton>Login</LoginButton>
+            <TextField
+              variant="standard"
+              label="Enter Email"
+              name="email"
+              onChange={(e) => loginValueChange(e)}
+            />
+            <TextField
+              variant="standard"
+              label="Enter Password"
+              name="password"
+              onChange={(e) => loginValueChange(e)}
+            />
+            <LoginButton onClick={()=>LoginUser()}>Login</LoginButton>
             <Typography style={{ textAlign: "center" }}>OR</Typography>
             <SignupButton onClick={() => handleToggle()}>
               Create An Account
