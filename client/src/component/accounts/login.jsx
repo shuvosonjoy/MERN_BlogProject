@@ -1,6 +1,8 @@
 import { Box, Button, styled, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { API } from "../../service/api";
+import {DataContext} from "../context/data_provider";
+import { useNavigate } from "react-router-dom";
 
 
 const Component = styled(Box)`
@@ -60,6 +62,10 @@ const Login = () => {
   const [signup, setSignUpValues] = useState(signUpValues);
   const [login, setLoginValues] = useState(loginValues);
 
+  const navigate = useNavigate();
+
+  const {setAccount} = useContext(DataContext);
+
   const textInput = (e) => {
     setSignUpValues({ ...signup, [e.target.name]: e.target.value });
   };
@@ -86,6 +92,10 @@ const LoginUser = async ()=>{
    
     sessionStorage.setItem("accessToken",`Bearer ${response.data.accessToken}`);
     sessionStorage.setItem("refreshToken",`Bearer ${response.data.refreshToken}`);
+
+    setAccount({username:response.data.username,email:response.data.email});
+
+    navigate("/home");
   }
 }
 
