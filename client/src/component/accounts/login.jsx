@@ -12,6 +12,7 @@ const Component = styled(Box)`
   margin: auto;
   box-shadow: 5px 2px 5px 2px rgb(0 0 0/0.6);
 `;
+
 const Header = styled("h1")({
   display: "flex",
   justifyContent: "center",
@@ -57,7 +58,7 @@ const loginValues = {
   password: "",
 };
 
-const Login = () => {
+const Login = ({setUserAuthenticated}) => {
   const [account, toggleAccount] = useState(true);
   const [signup, setSignUpValues] = useState(signUpValues);
   const [login, setLoginValues] = useState(loginValues);
@@ -94,8 +95,9 @@ const LoginUser = async ()=>{
     sessionStorage.setItem("refreshToken",`Bearer ${response.data.refreshToken}`);
 
     setAccount({username:response.data.username,email:response.data.email});
+    setUserAuthenticated(true);
 
-    navigate("/home");
+    navigate("/");
   }
 }
 
