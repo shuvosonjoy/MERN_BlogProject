@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_NOTIFICATION_MESSAGE, SERVICE_URL } from '../cosntants/config';
+import { API_NOTIFICATION_MESSAGE, SERVICE_URL } from '../constants/config';
 
 
 const API_URL = 'http://localhost:5000';
