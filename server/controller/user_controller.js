@@ -4,9 +4,7 @@ import UserModel from "../model/userModel.js";
 import TokenModel from "../model/token.js";
 import env from "dotenv";
 
-
 env.config();
-
 
 export const SignupUser = async (req, res) => {
   try {
