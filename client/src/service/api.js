@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_NOTIFICATION_MESSAGE, SERVICE_URL } from '../constants/config';
-
+import { getAccessToken, getRefreshToken, setAccessToken, getType } from '../utils/common-utils';
 
 const API_URL = 'http://localhost:5000';
 
@@ -91,7 +91,7 @@ for (const [key, value] of Object.entries(SERVICE_URL)) {
             data: value.method === 'DELETE' ? '' : body,
             responseType: value.responseType,
             headers: {
-               
+                authorization: getAccessToken(),
             },
          
             onUploadProgress: function(progressEvent) {

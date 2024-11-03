@@ -1,3 +1,5 @@
+import CreatePost from "../component/create/createPost";
+
 export const API_NOTIFICATION_MESSAGE = {
   loading: {
     title: "Loading...",
@@ -26,4 +28,7 @@ export const SERVICE_URL ={
     userSignup:{url:'/signup',method:'POST'},
     userLogin:{url:'/login',method:'POST'},
     uploadFile:{url:'/file/upload',method:'POST'},
+    CreatePost:{url:'/create',method:'POST'},
+
+   getAllPosts:{url:'/posts',method:'GET',params:true},
 }

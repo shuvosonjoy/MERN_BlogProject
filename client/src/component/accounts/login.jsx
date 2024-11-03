@@ -78,6 +78,7 @@ const Login = ({setUserAuthenticated}) => {
     let response = await API.userSignup(signup);
     if (response.isSuccess) {
       setSignUpValues(signUpValues);
+      navigate("/");
     }
   };
 
