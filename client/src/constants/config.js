@@ -31,4 +31,6 @@ export const SERVICE_URL ={
     CreatePost:{url:'/create',method:'POST'},
 
    getAllPosts:{url:'/posts',method:'GET',params:true},
+   getPostById:{url:'/post',method:'GET',query:true},
+   
 }

@@ -30,3 +30,18 @@ let posts;
         response.status(500).json(error);
     }
 }
+
+
+
+
+export const getPost = async(req,res)=>{
+    try{
+        console.log(req.params.id);
+        const post = await Post.findById(req.params.id);
+        return res.status(200).json(post);
+
+    }catch(e){
+        res.status(500).json(e);
+    }
+    }
+    
