@@ -16,6 +16,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     function(config){
+        if(config.TYPE.params){
+            config.params = config.TYPE.params;
+        }else if (config.TYPE.query) {
+            config.url = config.url + '/' + config.TYPE.query;
+        }
+
         return config;
     },
     function(error){
@@ -93,6 +99,7 @@ for (const [key, value] of Object.entries(SERVICE_URL)) {
             headers: {
                 authorization: getAccessToken(),
             },
+            TYPE: getType(value,body),
          
             onUploadProgress: function(progressEvent) {
                 if (showUploadProgress) {

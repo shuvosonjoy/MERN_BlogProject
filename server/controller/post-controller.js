@@ -14,14 +14,18 @@ export const createPost = async (request, response) => {
 }
 
 export const getAllPosts = async(request,response)=>{
-
+let category = request.query.category;
+let posts;
     try{
-     
-        let posts = await Post.find({});
-        console.log(posts);
-     
-       return response.status(200).json(posts);
-
+       
+     if (category){
+        posts = await Post.find({categories:category});
+      
+     }
+       else{
+        posts = await Post.find();
+       }
+     return response.status(200).json(posts);
     }catch(error){
         response.status(500).json(error);
     }
