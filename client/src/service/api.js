@@ -20,6 +20,7 @@ axiosInstance.interceptors.request.use(
             config.params = config.TYPE.params;
         }else if (config.TYPE.query) {
             config.url = config.url + '/' + config.TYPE.query;
+            
         }
 
         return config;
@@ -94,7 +95,7 @@ for (const [key, value] of Object.entries(SERVICE_URL)) {
         axiosInstance({
             method: value.method,
             url: value.url,
-            data: value.method === 'DELETE' ? '' : body,
+            data: value.method === 'DELETE' ? {} : body,
             responseType: value.responseType,
             headers: {
                 authorization: getAccessToken(),

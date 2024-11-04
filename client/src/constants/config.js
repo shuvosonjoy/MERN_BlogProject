@@ -32,5 +32,8 @@ export const SERVICE_URL ={
 
    getAllPosts:{url:'/posts',method:'GET',params:true},
    getPostById:{url:'/post',method:'GET',query:true},
+
+   UpdatePost:{url:'/update',method:'PUT',query:true},
+   DeletePost:{url:'/delete',method:'DELETE',query:true}, 
    
 }

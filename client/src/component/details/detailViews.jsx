@@ -73,8 +73,9 @@ const DetailView = () => {
     }, []);
 
     const deleteBlog = async () => {  
-        await API.deletePost(post._id);
-        navigate('/')
+        console.log("here",id);
+       await API.DeletePost(post._id);
+       navigate('/');
     }
 
     return (

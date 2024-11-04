@@ -3,7 +3,7 @@ import { SignupUser,loginUser } from '../controller/user_controller.js';
 import { uploadImage,getImage } from '../controller/upload_image.js';
 import { authenticateToken } from '../controller/jwt-controller.js';
 import upload from '../utils/upload.js';
-import { createPost, getAllPosts, getPost} from '../controller/post-controller.js';
+import { createPost, getAllPosts, getPost,UpdatePost,deletePost} from '../controller/post-controller.js';
 
 
 
@@ -20,6 +20,10 @@ router.post('/file/upload',upload.single('file'),uploadImage);
 router.get('/file/:filename', getImage);
 
 router.get('/post/:id',authenticateToken,getPost);
+
+
+router.put('/update/:id',authenticateToken,UpdatePost);
+router.delete('/delete/:id',authenticateToken,deletePost);
 
 
 
