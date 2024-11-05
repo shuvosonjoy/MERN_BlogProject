@@ -98,7 +98,7 @@ const UpdatePost = () => {
   const handleChange = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });
   };
-  const updatePost = async () => {
+  const updateBlogPost = async () => {
     const response = await API.UpdatePost(post);
 
     if (response.isSuccess) {
@@ -129,7 +129,7 @@ const UpdatePost = () => {
           placeholder="Title"
           value={post.title}
         />
-        <Button variant="contained" color="primary" onClick={() => updatePost()}>
+        <Button variant="contained" color="primary" onClick={() => updateBlogPost()}>
           Update
         </Button>
       </StyledFormControl>
