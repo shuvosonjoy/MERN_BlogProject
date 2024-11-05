@@ -11,7 +11,7 @@ import { DataContext } from "../context/data_provider";
 import Comments from "./comments/comment";
 
 const Container = styled(Box)(({ theme }) => ({
-  margin: "50px 100px",
+  margin: "50px 50px",
   [theme.breakpoints.down("md")]: {
     margin: 0,
   },
@@ -110,14 +110,12 @@ const DetailView = () => {
 
       <Typography
         style={{
-          marginLeft: "2rem",
-          marginRight: "2rem",
           textAlign: "justify",
         }}
       >
         {post.description}
       </Typography>
-      <Comments/>
+      <Comments post={post}/>
     </Container>
   );
 };
