@@ -35,6 +35,8 @@ export const SERVICE_URL ={
 
    UpdatePost:{url:'/update',method:'PUT',query:true},
    DeletePost:{url:'/delete',method:'DELETE',query:true}, 
-   NewComment:{url:'/comment',method:'POST'},
+   NewComment:{url:'/comment/new',method:'POST'},
+
+   getAllComments:{url:'comments',method:'GET',query:true},
    
 }

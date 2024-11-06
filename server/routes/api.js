@@ -3,7 +3,7 @@ import { SignupUser,loginUser } from '../controller/user_controller.js';
 import { uploadImage,getImage } from '../controller/upload_image.js';
 import { authenticateToken } from '../controller/jwt-controller.js';
 import upload from '../utils/upload.js';
-import { createComment } from '../controller/comment.js';
+import { createComment,getAllComments } from '../controller/comment.js';
 import { createPost, getAllPosts, getPost,UpdatePost,deletePost} from '../controller/post-controller.js';
 
 
@@ -26,7 +26,8 @@ router.get('/post/:id',authenticateToken,getPost);
 router.put('/update/:id',authenticateToken,UpdatePost);
 router.delete('/delete/:id',authenticateToken,deletePost);
 
-router.post('/comment',authenticateToken,createComment);
+router.post('/comment/new',authenticateToken,createComment);
+router.get('/comments/:id',authenticateToken,getAllComments);
 
 
 

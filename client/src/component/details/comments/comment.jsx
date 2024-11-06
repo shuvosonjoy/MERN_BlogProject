@@ -1,7 +1,9 @@
-import { Button, Container, InputBase, styled } from "@mui/material";
-import { useState,useContext } from "react";
+import { Button, Container, InputBase, styled,Box } from "@mui/material";
+import { useState,useContext, useEffect } from "react";
 import { DataContext } from "../../context/data_provider";
 import{API} from "../../../service/api"
+import AllComments from "./all-comments";
+
 const CommentBox = styled(InputBase)`
   flex: 1;
   margin: 50px 10px;
@@ -9,15 +11,29 @@ const CommentBox = styled(InputBase)`
   font-size: 25px;
 `;
 const initialValues = {
-  postId: "",
-  name: "",
-  createdDate: new Date(),
+    name: "",
+    postId: "",
+  date: new Date(),
   comments: "",
 };
 const Comments = ({ post }) => {
   let [comment, setComment] = useState(initialValues);
+  const [allComments,setComments]= useState([]);
+  const [toggle, setToggle] = useState(false);
 
   const { account } = useContext(DataContext);
+
+
+  useEffect(() => {
+  const fetchComments = async()=>{
+
+    let res = await API.getAllComments(post._id);
+    if (res.isSuccess) {
+     setComments(res.data);
+     setToggle(prev => !prev);
+  }
+  };fetchComments();
+  },[toggle,post]);
 
   const handleChange = (e) => {
     setComment({
@@ -36,7 +52,9 @@ if(res.isSuccess){
   };
 
   return (
-    <Container style={{ display: "flex", alignItems: "center", marginTop: 20 }}>
+    <Box>
+
+<Container style={{ display: "flex", alignItems: "center", marginTop: 20 }}>
       <CommentBox
         name="title"
         placeholder="Comments"
@@ -46,7 +64,16 @@ if(res.isSuccess){
       <Button variant="contained" onClick={(e) => AddComment(e)}>
         Comment
       </Button>
+    
     </Container>
+
+    <Box>
+      {  allComments && allComments.length>0 && allComments.map((comment) => (
+        <AllComments comment ={comment} setToggle={setToggle}/>
+        ))}
+      </Box>
+    </Box>
+   
   );
 };
 

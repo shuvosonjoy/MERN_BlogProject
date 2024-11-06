@@ -9,6 +9,7 @@ import { API } from "../../service/api";
 import { DataContext } from "../context/data_provider";
 
 import Comments from "./comments/comment";
+import AllComments from "./comments/all-comments";
 
 const Container = styled(Box)(({ theme }) => ({
   margin: "50px 50px",
@@ -74,7 +75,7 @@ const DetailView = () => {
   }, []);
 
   const deleteBlog = async () => {
-    console.log("here", id);
+
     await API.DeletePost(post._id);
     navigate("/");
   };
@@ -116,6 +117,7 @@ const DetailView = () => {
         {post.description}
       </Typography>
       <Comments post={post}/>
+    
     </Container>
   );
 };
