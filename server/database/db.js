@@ -1,15 +1,17 @@
 import mongoose from 'mongoose';
 
 const Connection = (username, password) => {
-    const URL = `mongodb+srv://${username}:${password}@simpleblog.vwup0.mongodb.net/simpleblog`;
+    const URL = `mongodb+srv://shuvosdg123:shuvosd123@simpleblog.vwup0.mongodb.net/simpleblog`;
+    console.log(username);
+    console.log(password);
 
-    mongoose.connect(URL)
-    .then(() => console.log('Database connected successfully!!'))
-    .catch((error) => {
-        console.log('Failed to connect with database...');
-        console.log(error.message);
-        process.exit(1);
-    });
+    mongoose.connect(URL, {
+        useNewUrlParser: true,  // No longer needed for Mongoose v6+
+        useUnifiedTopology: true, // No longer needed for Mongoose v6+
+    })
+    .then(() => console.log("Connected to MongoDB"))
+    .catch(err => console.error("Database connection error:", err));
+    
 }
 
 export default Connection;
