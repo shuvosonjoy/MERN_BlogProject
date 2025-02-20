@@ -1,4 +1,5 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs';
+
 import jwt from "jsonwebtoken";
 import UserModel from "../model/userModel.js";
 import TokenModel from "../model/token.js";
@@ -8,6 +9,7 @@ env.config();
 
 export const SignupUser = async (req, res) => {
   try {
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
