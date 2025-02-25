@@ -1,27 +1,36 @@
 
-import comment from '../model/comment.js';
+import Comment from '../model/comment.js';
 
 
-export const createComment = async (req, res) => {
-try{
-    const newComment = await new comment(req.body);
-    newComment.save();
+export const newComment = async (request, response) => {
+    try {
+        const comment = await new Comment(request.body);
+        comment.save();
 
-    res.status(200).json('Comment saved successfully');
-
-}catch(e){
-    res.status(500).json(e);
+        response.status(200).json('Comment saved successfully');
+    } catch (error) {
+        response.status(500).json(error);
+    }
 }
+
+
+export const getAllComments = async (request, response) => {
+    try {
+        const comments = await Comment.find({ postId: request.params.id });
+        
+        response.status(200).json(comments);
+    } catch (error) {
+        response.status(500).json(error)
+    }
 }
 
-export const getAllComments = async (req, res) => {
-try{
-    const comments = await comment.find({postId:req.params.id});
-    console.log(comments);
-    res.status(200).json(comments);
+export const deleteComment = async (request, response) => {
+    try {
+        const comment = await Comment.findById(request.params.id);
+        await comment.delete()
 
-}
-catch(e){
-    res.status(500).json(e);
-}
+        response.status(200).json('comment deleted successfully');
+    } catch (error) {
+        response.status(500).json(error)
+    }
 }

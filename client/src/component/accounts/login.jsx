@@ -89,6 +89,7 @@ const Login = ({setUserAuthenticated}) => {
 const LoginUser = async ()=>{
   let response  = await API.userLogin(login);
   console.log(response);
+  console.log("fromLOginpage");
   if(response.isSuccess){
  
    

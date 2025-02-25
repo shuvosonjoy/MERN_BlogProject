@@ -15,16 +15,20 @@ export const createPost = async (request, response) => {
 }
 
 export const getAllPosts = async(request,response)=>{
+ 
 let category = request.query.category;
 let posts;
     try{
+        console.log(category);
        
      if (category){
         posts = await Post.find({categories:category});
+        console.log(posts);
       
      }
        else{
         posts = await Post.find();
+        console.log(posts);
        }
      return response.status(200).json(posts);
     }catch(error){
@@ -64,19 +68,17 @@ export const getPost = async(req,res)=>{
 
    }
     }
-export const deletePost = async(req,res)=>{
-try{
 
-    let post = await Post.findById(req.params.id);
-   
-    if(!post){
-        return res.status(404).json('Post not found');
+
+    export const deletePost = async (request, response) => {
+        try {
+            console.log("here in delete");
+            const post = await Post.findById(request.params.id);
+            
+            await post.delete()
+    
+            response.status(200).json('post deleted successfully');
+        } catch (error) {
+            response.status(500).json(error)
+        }
     }
-    await Post.findByIdAndDelete(req.params.id);
-    return res.status(200).json('Post deleted successfully');
-
-}catch(e){
-    res.status(500).json(e);
-
-}
-}

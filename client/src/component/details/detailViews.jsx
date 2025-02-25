@@ -12,16 +12,16 @@ import Comments from "./comments/comment";
 import AllComments from "./comments/all-comments";
 
 const Container = styled(Box)(({ theme }) => ({
-  margin: "50px 50px",
-  [theme.breakpoints.down("md")]: {
-    margin: 0,
+  margin: '50px 100px',
+  [theme.breakpoints.down('md')]: {
+      margin: 0
   },
 }));
 
-const Image = styled("img")({
-  width: "100%",
-  height: "50vh",
-  objectFit: "cover",
+const Image = styled('img')({
+  width: '100%',
+  height: '50vh',
+  objectFit: 'cover'
 });
 
 const EditIcon = styled(Edit)`
@@ -46,80 +46,79 @@ const Heading = styled(Typography)`
 `;
 
 const Author = styled(Box)(({ theme }) => ({
-  color: "#878787",
-  display: "flex",
-  margin: "20px 0",
-  [theme.breakpoints.down("sm")]: {
-    display: "block",
+  color: '#878787',
+  display: 'flex',
+  margin: '20px 0',
+  [theme.breakpoints.down('sm')]: {
+      display: 'block'
   },
 }));
 
 const DetailView = () => {
-  const url =
-    "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80";
-
+  const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
+  
   const [post, setPost] = useState({});
   const { account } = useContext(DataContext);
 
   const navigate = useNavigate();
   const { id } = useParams();
-
+  
   useEffect(() => {
-    const fetchData = async () => {
-      let response = await API.getPostById(id);
-      if (response.isSuccess) {
-        setPost(response.data);
+      const fetchData = async () => {
+          let response = await API.getPostById(id);
+          if (response.isSuccess) {
+              setPost(response.data);
+          }
       }
-    };
-    fetchData();
+      fetchData();
   }, []);
 
-  const deleteBlog = async () => {
-
-    await API.DeletePost(post._id);
-    navigate("/");
-  };
+  // const deleteBlog = async () => {  
+  //   console.log(post._id);
+  //     await API.deletePost(post._id);
+  //     navigate('/')
+  // }
+   const deleteBlog = async (id) => {
+    try {
+      console.log("here from dele")
+        const response = await fetch(`http://localhost:5000/delete/${id}`, {
+            method: "DELETE",
+        });
+        if (!response.ok) {
+            throw new Error("Failed to delete post");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return { isFailure: true, msg: "An error occurred while deleting the post." };
+    }
+};
 
   return (
-    <Container>
-      <Image src={post.picture || url} alt="post" />
-      <Box style={{ float: "right" }}>
-        {account.username === post.username && (
-          <>
-            <Link to={`/update/${post._id}`}>
-              <EditIcon color="primary" />
-            </Link>
-            <DeleteIcon onClick={() => deleteBlog()} color="error" />
-          </>
-        )}
-      </Box>
-      <Heading>{post.title}</Heading>
+      <Container>
+          <Image src={post.picture || url} alt="post" />
+          <Box style={{ float: 'right' }}>
+              {   
+                  account.username === post.username && 
+                  <>  
+                      <Link to={`/update/${post._id}`}><EditIcon color="primary" /></Link>
+                      <DeleteIcon onClick={() => deleteBlog()} color="error" />
+                  </>
+              }
+          </Box>
+          <Heading>{post.title}</Heading>
 
-      <Author>
-        <Link
-          to={`/?username=${post.username}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Typography>
-            Author: <span style={{ fontWeight: 600 }}>{post.username}</span>
-          </Typography>
-        </Link>
-        <Typography style={{ marginLeft: "auto" }}>
-          {new Date(post.createdDate).toDateString()}
-        </Typography>
-      </Author>
+          <Author>
+              <Link to={`/?username=${post.username}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography>Author: <span style={{fontWeight: 600}}>{post.username}</span></Typography>
+              </Link>
+              <Typography style={{marginLeft: 'auto'}}>{new Date(post.createdDate).toDateString()}</Typography>
+          </Author>
 
-      <Typography
-        style={{
-          textAlign: "justify",
-        }}
-      >
-        {post.description}
-      </Typography>
-      <Comments post={post}/>
-    
-    </Container>
-  );
-};
+          <Typography>{post.description}</Typography>
+          <Comments post={post} />
+      </Container>
+  )
+}
 
 export default DetailView;

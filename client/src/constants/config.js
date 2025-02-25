@@ -34,8 +34,8 @@ export const SERVICE_URL ={
    getPostById:{url:'/post',method:'GET',query:true},
 
    UpdatePost:{url:'/update',method:'PUT',query:true},
-   DeletePost:{url:'/delete',method:'DELETE',query:true}, 
-   NewComment:{url:'/comment/new',method:'POST'},
+   deletePost:{url:'/delete',method:'DELETE',query:true}, 
+   newComment:{url:'/comment/new',method:'POST'},
 
    getAllComments:{url:'comments',method:'GET',query:true},
    

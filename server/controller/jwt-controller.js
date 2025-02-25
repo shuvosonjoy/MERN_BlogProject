@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const authenticateToken = (request, response, next) => {
+    console.log("top of jwtcontroller");
     const authHeader = request.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     
@@ -19,6 +20,7 @@ export const authenticateToken = (request, response, next) => {
         }
 
         request.user = user;
+        console.log("here authenticated");
         next();
     })
 }

@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
     timeout:10000,
     headers:{
         "Content-Type": "application/json",
+        
     }
 });
 
@@ -89,19 +90,18 @@ const API={
 
 }
 
-
 for (const [key, value] of Object.entries(SERVICE_URL)) {
+    console.log("api-Hit");
     API[key] = (body, showUploadProgress, showDownloadProgress) =>
         axiosInstance({
             method: value.method,
             url: value.url,
-            data: value.method === 'DELETE' ? {} : body,
+            data: value.method === 'DELETE' ? '' : body,
             responseType: value.responseType,
             headers: {
                 authorization: getAccessToken(),
             },
-            TYPE: getType(value,body),
-         
+            TYPE: getType(value, body),
             onUploadProgress: function(progressEvent) {
                 if (showUploadProgress) {
                     let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);

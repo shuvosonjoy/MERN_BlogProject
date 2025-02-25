@@ -14,13 +14,12 @@ const PORT = 5000;
 const __dirname = path.resolve();
 
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, "/client/build"))); 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client","build", "index.html"));
   });
 
-
-app.use(cors());
 app.use(BodyParser.json({extended:true}));
 app.use(BodyParser.urlencoded({extended:true}));
 app.use('/',Router);

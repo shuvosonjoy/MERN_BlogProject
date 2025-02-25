@@ -12,7 +12,10 @@ const Posts = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await API.getAllPosts({ category: category });
+      console.log("entered posts.jsx");
+      console.log(category);
+     let response = await API.getAllPosts({ category: category });
+    
       console.log(response.data);
 
       if (response.isSuccess) {
@@ -26,7 +29,7 @@ const Posts = () => {
     <>
       {posts && posts.length > 0 ? (
         posts.map((post) => (
-          <Grid item lg={3} sm={4} xs={12}>
+          <Grid item lg={3} sm={4} xs={12} key={post._id}>
             <Link to ={`details/${post._id}`} style={{textDecoration:'none',color:'inherit'}}>
            
               <Post post={post} />
